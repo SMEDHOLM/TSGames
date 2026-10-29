@@ -36,4 +36,4 @@ reloadButton.addEventListener('click', () => game.reset());
 setInterval(() => {
   game.update();
   game.draw();
-}, 6000);
+}, 1000);
