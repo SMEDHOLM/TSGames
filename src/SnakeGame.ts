@@ -25,15 +25,49 @@ export class SnakeGame {
 
  }
  private SetupInput():void {
-  window.addEventListener('keydown', (e: KeyboardEvent) =>
-  {
-    if (e.key === 'w' && this.direction !== 'DOWN'){this.direction = "UP";}
-    if (e.key === 's' && this.direction !== 'UP'){this.direction = 'DOWN'}
-    if (e.key === 'a' && this.direction !== 'RIGHT'){this.direction = "LEFT";}
-    if (e.key === 'd' && this.direction !== 'LEFT'){this.direction = 'RIGHT'}
- });
+ window.addEventListener('keydown', (event: KeyboardEvent) => {
+   const directions: Record<string, Direction> = {
+     ArrowUp: 'UP',
+     w: 'UP',
+     ArrowDown: 'DOWN',
+     s: 'DOWN',
+     ArrowLeft: 'LEFT',
+     a: 'LEFT',
+     ArrowRight: 'RIGHT',
+     d: 'RIGHT',
+   };
+   const direction = directions[event.key] ?? directions[event.key.toLowerCase()];
 
- 
+   if (direction) {
+     if (event.key.startsWith('Arrow')) {
+       event.preventDefault();
+     }
+     this.changeDirection(direction);
+   }
+ });
+}
+
+public changeDirection(direction: Direction): void {
+ if (this.GameOver) {
+   return;
+ }
+
+ const isOppositeDirection =
+   (this.direction === 'UP' && direction === 'DOWN') ||
+   (this.direction === 'DOWN' && direction === 'UP') ||
+   (this.direction === 'LEFT' && direction === 'RIGHT') ||
+   (this.direction === 'RIGHT' && direction === 'LEFT');
+
+ if (!isOppositeDirection) {
+   this.direction = direction;
+ }
+}
+
+public reset(): void {
+ this.snake = [{ x: 10, y: 10 }];
+ this.direction = 'RIGHT';
+ this.GameOver = false;
+ this.SpawnFood();
 }
   public draw(): void{
     this.ctx.fillStyle = '#403a3a'
