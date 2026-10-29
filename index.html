@@ -28,11 +28,12 @@
     .direction-controls {
       display: grid;
       grid-template-columns: repeat(3, 3.5rem);
-      grid-template-rows: repeat(2, 3.5rem);
+      grid-template-rows: repeat(3, 3.5rem);
       gap: 0.5rem;
     }
     .direction-controls [data-direction="UP"] {
       grid-column: 2;
+      grid-row: 1;
     }
     .direction-controls [data-direction="LEFT"] {
       grid-column: 1;
@@ -40,7 +41,7 @@
     }
     .direction-controls [data-direction="DOWN"] {
       grid-column: 2;
-      grid-row: 2;
+      grid-row: 3;
     }
     .direction-controls [data-direction="RIGHT"] {
       grid-column: 3;
@@ -50,6 +51,10 @@
 </head>
 <body>
 
+  <button class="btn btn-outline-light" id="reloadButton" type="button">
+    <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+    Restart game
+  </button>
   <canvas id="gameCanvas" width="400" height="400"></canvas>
   <div class="direction-controls" aria-label="Snake direction controls">
     <button class="btn btn-success" type="button" data-direction="UP" aria-label="Move up">
@@ -65,10 +70,6 @@
       <i class="bi bi-arrow-right" aria-hidden="true"></i>
     </button>
   </div>
-  <button class="btn btn-outline-light" id="reloadButton" type="button">
-    <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
-    Restart game
-  </button>
 
   <!-- Подключаем TypeScript как модуль через Vite -->
   <script type="module" src="/src/main.ts"></script>
